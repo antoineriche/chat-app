@@ -3,6 +3,7 @@ const MSG_NEW_MESSAGE     = "new-message";
 
 const CHAT_INFO           = "chat-info";
 const INFO_NEW_CHATTER    = "new-chatter";
+const INFO_CHAT_STATE     = "chat-state";
 const INFO_CHATTER_LEFT   = "chatter-left";
 const INFO_CHATTER_COUNT  = "chatter-count";
 
@@ -37,6 +38,11 @@ exports.signInMessage = function(login){
   return serverJSON(CHAT_INFO, INFO_NEW_CHATTER, msg);
 }
 
+exports.chatState = function(clients){
+  var msg = clients.length;
+  return serverJSON(CHAT_INFO, INFO_CHAT_STATE, msg);
+}
+
 exports.signOutMessage = function(login){
   var msg = 'Bye ' + login;
   return serverJSON(CHAT_INFO, INFO_CHATTER_LEFT, msg);
@@ -49,6 +55,10 @@ exports.forbiddenLoginMessage = function(login){
 
 exports.unknownClient = function(){
   return serverJSON(CHAT_ERROR, ERR_UNKNOWN_CLIENT, '');
+}
+
+exports.updateLoginFailed = function(){
+  return serverJSON(CHAT_ERROR, ERR_LOGIN_EXISTS, '');
 }
 
 exports.newChatMessage = function(from, msg){

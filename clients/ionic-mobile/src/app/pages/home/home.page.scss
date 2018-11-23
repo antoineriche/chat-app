@@ -1,0 +1,64 @@
+.my-content {
+  --background: #F09E9E;
+}
+
+.my-grid {
+  border-bottom: 2px red solid;
+}
+
+.header {
+  border-bottom: solid 2px #ffce00;
+}
+
+.footer {
+  border-top: solid 2px red;
+}
+
+.chat-msg {
+  padding: 8px;
+  max-width: 75%;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.me {
+  background-color: #E1BEE7;
+  float: right;
+}
+
+.other {
+  background-color: #BBDEFB;
+  float: left;
+}
+
+.author {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.alert {
+  font-weight: bold;
+  padding: 5px;
+}
+
+.alert-info {
+  background-color: #ffce00;
+}
+
+.alert-error {
+  background-color: #f04141;
+  color: white;
+}
+
+.my-item {
+  --inner-padding-bottom: 0px;
+  --inner-padding-top: 0px;
+  --inner-padding-start: 0px;
+  --inner-padding-end: 0px;
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  margin-bottom: 4px;
+}

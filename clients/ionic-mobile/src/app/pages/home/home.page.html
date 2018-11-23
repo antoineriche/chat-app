@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>
+      Chat App {{(chattersCount && chattersCount > 0) ? '('+chattersCount+')' : ''}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-text>
+        {{isLogged ? currentLogin + "  " : 'Non connecté(e)  '}}
+      </ion-text>
+      <ion-icon  *ngIf="isLogged" name="contact" slot="start" color="light"></ion-icon>
+      <ion-spinner [hidden]="isConnected" color="light" name="bubbles"></ion-spinner>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar class="my-content">
+    <ion-segment [(ngModel)]="currentSegment" (ionChange)="segmentChanged($event)" color="light" class="primary">
+      <ion-segment-button value="map">
+        <ion-icon name="map"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="chat">
+        <ion-icon name="contacts"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="favorite">
+        <ion-icon name="star"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div *ngIf="info" class="alert alert-info">{{info}}</div>
+  <div *ngIf="error" class="alert alert-error">{{error}}</div>
+
+</ion-header>
+
+<ion-content>
+
+  <div [hidden] = "currentSegment != 'map'">
+
+    <ion-card>
+      <ion-item *ngIf="isLogged" lines="none">
+        <ion-icon name="contact" slot="start" color="primary"></ion-icon>
+        Connecté(e) en tant que {{currentLogin}}
+      </ion-item>
+      <ion-item *ngIf="!isLogged" lines="none">
+        <ion-icon name="contact" slot="start" color="danger"></ion-icon>
+        Non connecté(e)
+      </ion-item>
+    </ion-card>
+
+    <ion-item lines="none" class="my-grid">
+      <ion-label position="fixed">Login</ion-label>
+      <ion-input type="text" [(ngModel)]="inputLogin" placeholder="Enter a login"></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="sendLogin()" [disabled]="!isValidLogin()" color="danger">Valider</ion-button>
+  </div>
+
+  <div [hidden] = "currentSegment != 'chat'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let msg of chatMsgs" class="my-item" lines="none">
+
+        <div [slot]="isMe(msg) ? 'end' : 'start'" [class]="isMe(msg) ? 'chat-msg me' : 'chat-msg other'">
+          <div *ngIf="!isMe(msg)" class="author">
+            {{msg.content.from}}
+          </div>
+          {{msg.content.message}}
+        </div>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div [hidden] = "currentSegment != 'favorite'">
+    The world is your favorite.
+    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+    <p>Favorite</p>
+  </div>
+
+</ion-content>
+
+<ion-footer [hidden] = "currentSegment != 'chat'">
+  <ion-toolbar class="my-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item lines="none">
+            <ion-input type="text" [(ngModel)]="inputMessage" placeholder="Say something" (keyup.enter)="sendMessage()" (ionChange)=isValidMsg()></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button expand="block" (click)="sendMessage()" [disabled]="!isValidMsg()">Envoyer</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
