@@ -20,6 +20,7 @@ export class HomePage {;
   timeoutError    : any;
   error           : string;
   currentLogin    : string;
+  inputLogin      : string;
   chattersCount   : number;
 
   constructor(private chatService : ChatService) { }
@@ -46,7 +47,7 @@ export class HomePage {;
     );
 
     this.chatService.onChatError().subscribe(
-      (err) => {this.displayError(err.type); console.log(err)};
+      (err) => this.displayError(err.type)
     );
 
     this.chatService.onChatMessage().subscribe(
@@ -58,13 +59,12 @@ export class HomePage {;
 
     this.chatService.onChatInfo().subscribe(
       (info) => {
-        console.log(info);
         if(info.type == "chat-state"){
           this.chattersCount = info.content.message;
         } else {
           this.displayInfo(info.content.message);
         }
-      };
+      }
     )
   }
 
