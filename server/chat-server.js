@@ -35,7 +35,6 @@ app.get('/', function(req, res) {
 io.use(sharedsession(session, {autoSave:true}));
 
 io.on('connection', (socket) => {
-	console.log('new user connected');
 
 	socket.on('called', function(msg){
 		socket.emit('notification', "okkkk");
@@ -75,6 +74,9 @@ io.on('connection', (socket) => {
 	    	io.emit(chatsocket.CHAT_INFO, msg);
 
 	    	msg = chatsocket.chatState(sockets);
+	    	io.emit(chatsocket.CHAT_INFO, msg);
+
+	    	msg = chatsocket.chatUsers(sockets);
 	    	io.emit(chatsocket.CHAT_INFO, msg);
 		} else {
 			console.log(login + "' is already used.");

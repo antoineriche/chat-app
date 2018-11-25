@@ -4,6 +4,7 @@
 	border: solid 1px grey;
 	margin-bottom:10px;
 	overflow-y: auto;
+	bottom: 0;
 }
 
 .gg {

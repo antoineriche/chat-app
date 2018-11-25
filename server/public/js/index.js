@@ -11,6 +11,15 @@ socket.on('chat-message', function(x) {
   );
 });
 
+socket.on('chat-info', function(x) {
+  if(x.type == 'chat-state'){
+    updateCount(x.content.message);
+  } else if (x.type == "chat-users"){
+    updateUsersList(x.content.message);
+  }
+  console.log(x);
+});
+
 socket.on('login', function(login) { 
   pseudo = login;
   $('#loggedAs').html('Logged as ' + login);
@@ -65,5 +74,20 @@ function createDivMsg(msg, author, date){
 function scrollToBottom(){
   var height = document.getElementById("chat-container").scrollHeight;
   $("#chat-container").animate({scrollTop: height}, 0);
+}
+
+function updateCount(count){
+    var msg = count;
+    msg += count > 1 ? ' clients' : ' client';
+    msg += ' en ligne';
+    $("#active-clients").html(msg);
+}
+
+function updateUsersList(users){
+  var listContent = "";
+  users.forEach(function(user){
+    listContent += "<li class='list-group-item'>" + user + "</li>";
+  });
+  $("#list-users").html(listContent);
 }
   

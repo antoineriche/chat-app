@@ -28,22 +28,39 @@
         </nav>
 
         <div class="container">
-		
-			<div id="chat-container"></div>
+			
+			<div class="row">
+				<div class="col-lg-9">
+					<div id="chat-container"></div>
 
-				<form action="" onsubmit="event.preventDefault();">
-					<div class="input-group">
-				    	<input type="text" class="form-control" placeholder="Say something..." id="chatMessage">
-			      		<span class="input-group-btn">
-			        		<button onclick="sendMessage()" class="btn btn-default">
-			        			Envoyer
-			        		</button>
-			      		<!-- </span> -->
-		      		</div>
-		      	</form>
-		    <!-- </div> -->
+					<form action="" onsubmit="event.preventDefault();">
+						<div class="input-group">
+					    	<input type="text" class="form-control" placeholder="Say something..." id="chatMessage">
+				      		<span class="input-group-btn">
+				        		<button onclick="sendMessage()" class="btn btn-default">
+				        			Envoyer
+				        		</button>
+				        	</span>
+				      	</div>
+			      	</form>
+		      	</div>
+		      	<div class="col-lg-3">
+		      		<div class="panel panel-primary">
+		      			<div class="panel-heading" id="active-clients">
+		      				Pas de client en ligne
+		      			</div>
+		      			<div class="panel-body" >
+					    	<ul class="list-group" id="list-users"></ul>
+					  	</div>
+					</div>
+
+					
+		      	</div>
+			</div>
 
 		</div>
+
+
 		
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script src="js/index.js"></script>

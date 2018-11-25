@@ -4,6 +4,7 @@ const MSG_NEW_MESSAGE     = "new-message";
 const CHAT_INFO           = "chat-info";
 const INFO_NEW_CHATTER    = "new-chatter";
 const INFO_CHAT_STATE     = "chat-state";
+const INFO_CHAT_USERS     = "chat-users";
 const INFO_CHATTER_LEFT   = "chatter-left";
 const INFO_CHATTER_COUNT  = "chatter-count";
 
@@ -41,6 +42,10 @@ exports.signInMessage = function(login){
 exports.chatState = function(clients){
   var msg = clients.length;
   return serverJSON(CHAT_INFO, INFO_CHAT_STATE, msg);
+}
+
+exports.chatUsers = function(clients){
+  return serverJSON(CHAT_INFO, INFO_CHAT_USERS, clients);
 }
 
 exports.signOutMessage = function(login){
