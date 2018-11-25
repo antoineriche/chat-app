@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chat App</title>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/moment/moment.js"></script>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+	<body>
+		<nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="#">Chat App</a>
+                </div>
+
+                <p class="navbar-text" id="loggedAs"></p>
+
+                <form class="navbar-form navbar-right" action="" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Pseudo" id="login" autocomplete="off">
+                    </div>
+                    <button onclick="setLogin()" class="btn btn-default">Se connecter</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container">
+		
+			<div id="chat-container"></div>
+
+				<form action="" onsubmit="event.preventDefault();">
+					<div class="input-group">
+				    	<input type="text" class="form-control" placeholder="Say something..." id="chatMessage">
+			      		<span class="input-group-btn">
+			        		<button onclick="sendMessage()" class="btn btn-default">
+			        			Envoyer
+			        		</button>
+			      		<!-- </span> -->
+		      		</div>
+		      	</form>
+		    <!-- </div> -->
+
+		</div>
+		
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script src="js/index.js"></script>
+		<script type="text/javascript">
+
+			function notification(content){
+			  var x = document.getElementById("storage");
+			  x.innerHTML = content;
+			  console.log(content);
+			}
+		</script>
+	</body>		
+</html>

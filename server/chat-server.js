@@ -1,4 +1,6 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
+var fs = require('fs');
 var cors = require('cors');
 var server = require('http').Server(app);
 var chatsocket = require('./chatsocket');
@@ -16,14 +18,28 @@ console.log('start chat-app-server');
 app.use(cors());
 app.options('*', cors());
 
+app.use('/moment', express.static(__dirname + '/node_modules/moment')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use(express.static('public'));
+// app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+
 // Use express-session middleware for express
 app.use(session);
+
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
 //Use shared session middleware for socket.io setting autoSave:true
 io.use(sharedsession(session, {autoSave:true}));
 
 io.on('connection', (socket) => {
 	console.log('new user connected');
+
+	socket.on('called', function(msg){
+		socket.emit('notification', "okkkk");
+	});
 
 	socket.on('chat-login-update', function(newLogin){
 		var oldLogin = socket.handshake.session.login;
@@ -87,6 +103,7 @@ io.on('connection', (socket) => {
 			console.log(login + ': ' + msg);
 			var msg = chatsocket.newChatMessage(login, msg);
 			socket.broadcast.emit(chatsocket.CHAT_MSG, msg);
+			// io.emit('chat-message', 'gang');
 		} else {
 			console.log("Can't forward message: unknown client.");		
 			var msg = chatsocket.unknownClient();
